@@ -1,0 +1,23 @@
+{
+  "devlink": {
+    "host": "https://api.webflow.com",
+    "rootDir": "./devlink",
+    "siteId": "6992e49ad3337e973f903dee"
+  },
+  "telemetry": {
+    "global": {
+      "allowTelemetry": true,
+      "lastPrompted": 1784111247712,
+      "version": "2.2.0"
+    }
+  },
+  "siteId": "6992e49ad3337e973f903dee",
+  "devlink-export": {
+    "rootDir": "./webflow",
+    "components": ".*",
+    "componentGroups": ".*",
+    "ts": false,
+    "cssScopes": true,
+    "relativeHrefRoot": "/"
+  }
+}

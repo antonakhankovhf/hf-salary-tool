@@ -1,0 +1,276 @@
+/* Fonts */
+
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c144204de84ef27976376f_Barlow-BlackItalic.ttf")
+    format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c1442021adfd54cf77bf10_Barlow-BoldItalic.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a3fb6f0ee3a712911a_Barlow-ExtraBold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c144209138921b1e56d3ae_Barlow-ExtraLightItalic.ttf")
+    format("truetype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a36346961d7972c242_Barlow-ExtraLight.ttf")
+    format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a3a6c1ada608942e73_Barlow-Black.ttf")
+    format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a3121c4fbcc5ef1ce8_Barlow-Thin.ttf")
+    format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a33e5575f1343e31a6_Barlow-Light.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c144207a37de7db234ced9_Barlow-Italic.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c1442062c6811cf15b5f7e_Barlow-LightItalic.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c1442063b48ee7449a107a_Barlow-SemiBoldItalic.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c14420308d61d43a9192bd_Barlow-MediumItalic.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a31e4e036678e718a5_Barlow-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c14420cd80d3c2afef779d_Barlow-ThinItalic.ttf")
+    format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a3deb8d71cc6e167bd_Barlow-Medium.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a35669a94f73c4b7a9_Barlow-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/69c142a3fb6f0ee3a712911a_Barlow-ExtraBold.ttf")
+    format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db880855fa29a627ca4d_BarlowCondensed-Light.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db880bff60d582f30f9e_BarlowCondensed-Thin.ttf")
+    format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88c7cdf52b7daf0c37_BarlowCondensed-ThinItalic.ttf")
+    format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88c7c9247af6967715_BarlowCondensed-ExtraLightItalic.ttf")
+    format("truetype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db882f08c2fb0943e889_BarlowCondensed-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db886673663d483f7e94_BarlowCondensed-SemiBoldItalic.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88f864bf7545479092_BarlowCondensed-Medium.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db8831b430865b523974_BarlowCondensed-Italic.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88eaacf537d5fae455_BarlowCondensed-LightItalic.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88f864bf7545479097_BarlowCondensed-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db887310126a493e0eab_BarlowCondensed-MediumItalic.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88c3fd7c14d9e9b0f6_BarlowCondensed-ExtraLight.ttf")
+    format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88025bb2e6f776fb40_BarlowCondensed-ExtraBoldItalic.ttf")
+      format("truetype"),
+    url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88a78e9dbb59beaef3_BarlowCondensed-BoldItalic.ttf")
+      format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88eaacf537d5fae475_BarlowCondensed-Black.ttf")
+    format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db88f120b9b067957f11_BarlowCondensed-BlackItalic.ttf")
+    format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db887dd9c36c15b7d7da_BarlowCondensed-ExtraBold.ttf")
+    format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Barlowcondensed";
+  src: url("https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a06db886daeeed1e51f59a7_BarlowCondensed-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,17 @@
+/*
+ * NOTE: the original DevLink export used `@import "./x.css" layer(name);`
+ * for each file below. Next.js 14.2's webpack css-loader mistranslates that
+ * `layer(...)` import condition into an invalid `@media layer(name) { ... }`
+ * block, which browsers then silently drop (since `layer(name)` isn't a real
+ * media feature) — this stripped ALL Webflow styling (navbar/footer/dropdowns)
+ * without erroring. The `layer(...)` conditions were removed here; plain
+ * source-order `@import` gives the same cascade result since none of these
+ * files' selectors actually conflict with app/globals.css.
+ * If you re-export from Webflow DevLink, reapply this same edit.
+ */
+@import "./fonts.css";
+@import "./normalize.css";
+@import "./defaults.css";
+@import "./variables.css";
+@import "./tags.css";
+@import "./classes.css";
