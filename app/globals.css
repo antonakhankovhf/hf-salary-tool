@@ -96,6 +96,10 @@ body {
   color: var(--bg);
   background-color: var(--accent);
 }
+.white-bold-text {
+  color: var(--text);
+  font-weight: 500;
+}
 .card {
   background: var(--card);
   border: 1px solid #1f1f1f;
@@ -312,10 +316,35 @@ select:focus {
   text-transform: uppercase;
   margin-bottom: 12px;
 }
+.result-range-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 6px;
+}
 .result-range {
   font-size: 34px;
   font-weight: 800;
-  margin-bottom: 6px;
+}
+.result-minmax {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.result-minmax-label {
+  color: var(--muted2);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.result-minmax-value {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
 }
 .result-note {
   color: var(--muted);
@@ -390,8 +419,22 @@ select:focus {
   align-items: center;
   gap: 24px;
 }
-.gauge-ring {
+.gauge-ring-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
   flex-shrink: 0;
+}
+.gauge-ring {
+  display: block;
+}
+.gauge-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .gauge-track {
   stroke: var(--field-border);
@@ -409,16 +452,16 @@ select:focus {
   stroke: #d03b3b;
 }
 .gauge-value {
-  fill: var(--text);
-  font-size: 26px;
+  color: var(--text);
+  font-size: 32px;
   font-weight: 800;
-  font-family: inherit;
+  line-height: 1;
 }
 .gauge-max {
-  fill: var(--muted2);
+  color: var(--muted2);
   font-size: 11px;
   font-weight: 700;
-  font-family: inherit;
+  line-height: 1;
 }
 .gauge-details {
   flex: 1;
@@ -461,15 +504,24 @@ select:focus {
   border-radius: 6px;
   padding: 18px 16px;
 }
+.stat-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.stat-icon {
+  flex-shrink: 0;
+  color: var(--text);
+}
 .stat-value {
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 32px;
+  font-weight: 700;
   color: var(--accent);
-  margin-bottom: 6px;
 }
 .stat-label {
-  color: var(--muted);
-  font-size: 10.5px;
+  color: var(--text);
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;

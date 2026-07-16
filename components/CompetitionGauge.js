@@ -12,31 +12,31 @@ export default function CompetitionGauge({ job, region, competition }) {
         <span className="gauge-card-title">Wettbewerbslage</span>
       </div>
       <div className="gauge-card-body">
-        <svg className="gauge-ring" viewBox="0 0 120 120" width="120" height="120">
-          <circle className="gauge-track" cx="60" cy="60" r={RADIUS} strokeWidth={STROKE} fill="none" />
-          <circle
-            className={"gauge-fill gauge-fill-" + level}
-            cx="60"
-            cy="60"
-            r={RADIUS}
-            strokeWidth={STROKE}
-            fill="none"
-            strokeDasharray={CIRCUMFERENCE}
-            strokeDashoffset={offset}
-            strokeLinecap="round"
-            transform="rotate(-90 60 60)"
-          />
-          <text x="60" y="56" textAnchor="middle" className="gauge-value">
-            {index}
-          </text>
-          <text x="60" y="74" textAnchor="middle" className="gauge-max">
-            /100
-          </text>
-        </svg>
+        <div className="gauge-ring-wrap">
+          <svg className="gauge-ring" viewBox="0 0 120 120" width="120" height="120">
+            <circle className="gauge-track" cx="60" cy="60" r={RADIUS} strokeWidth={STROKE} fill="none" />
+            <circle
+              className={"gauge-fill gauge-fill-" + level}
+              cx="60"
+              cy="60"
+              r={RADIUS}
+              strokeWidth={STROKE}
+              fill="none"
+              strokeDasharray={CIRCUMFERENCE}
+              strokeDashoffset={offset}
+              strokeLinecap="round"
+              transform="rotate(-90 60 60)"
+            />
+          </svg>
+          <div className="gauge-ring-center">
+            <span className="gauge-value">{index}</span>
+            <span className="gauge-max">/100</span>
+          </div>
+        </div>
         <div className="gauge-details">
           <span className={"gauge-badge gauge-badge-" + level}>{label}</span>
           <p className="gauge-note">
-            Für Stellen als <strong>{job}</strong> in <strong>{region}</strong> herrscht im Vergleich zu anderen
+            Für Stellen als <span className="white-bold-text">{job}</span> in <span className="white-bold-text">{region}</span> herrscht im Vergleich zu anderen
             Arbeitsmärkten {qualifier.toLowerCase()} Wettbewerb.
           </p>
         </div>

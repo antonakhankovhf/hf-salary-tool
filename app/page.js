@@ -48,10 +48,10 @@ export default function Home() {
     const region = values.region.trim();
     const radiusKm = parseFloat(values.radius);
 
-    const { salary, base, cityFactor } = computeAverageSalary(job, region);
+    const { salary, min, max, base, cityFactor } = computeAverageSalary(job, region);
     const benchmark = computeBenchmark(job, region, radiusKm, cityFactor, base);
 
-    setResult({ salary });
+    setResult({ salary, min, max });
     setStats(benchmark);
     setStep("result");
   }
