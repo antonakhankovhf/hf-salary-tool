@@ -521,11 +521,10 @@ select:focus {
 }
 .stat-label {
   color: var(--text);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 1.5px;
   text-transform: uppercase;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 .stat-trend-up {
   color: var(--accent);
