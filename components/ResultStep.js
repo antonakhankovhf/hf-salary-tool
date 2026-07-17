@@ -214,7 +214,7 @@ export default function ResultStep({
       )}
 
       <button className="btn" onClick={onSubmitLead}>
-        Analyse anfordern &nbsp;→
+        Analyse anfordern
       </button>
       <p className="footnote">Kostenlos &amp; unverbindlich. Wir melden uns innerhalb von 24 Stunden bei dir.</p>
     </div>

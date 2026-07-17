@@ -13,11 +13,10 @@ export default function SalaryForm({ values, errors, onChange, onSubmit }) {
 
   return (
     <div id="step-input">
-      <div className="eyebrow">Kostenloser Gehalts-Check</div>
-      <h1>Gehaltsprognose berechnen</h1>
+      <div className="eyebrow">KOSTENLOSER GEHALTS-CHECK FÜR ARBEITEGBER</div>
+      <h1>Was ist deine Stelle wirklich wert?</h1>
       <p className="intro">
-        Wir analysieren aktuelle Marktdaten und zeigen dir, welches Gehalt für deine Stelle
-        realistisch ist – kostenlos und in wenigen Sekunden.
+        Jobtitel und Standort eingeben, Ergebnis in Sekunden – auf Basis aktueller Vergütungsdaten aus dem DACH-Raum.
       </p>
 
       <div className="section-title">Zur Stelle</div>
@@ -86,7 +85,7 @@ export default function SalaryForm({ values, errors, onChange, onSubmit }) {
       </div>
 
       <button className="btn" onClick={onSubmit}>
-        Gehalt berechnen &nbsp;→
+        Jetzt berechnen
       </button>
       <p className="footnote">Die Prognose basiert auf aktuellen Markt- und Vergütungsdaten im DACH-Raum.</p>
     </div>
