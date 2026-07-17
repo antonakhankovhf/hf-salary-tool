@@ -14,7 +14,7 @@ export default function SalaryForm({ values, errors, onChange, onSubmit }) {
   return (
     <div id="step-input">
       <div className="eyebrow">KOSTENLOSER GEHALTS-CHECK FÜR ARBEITEGBER</div>
-      <h1>Was ist deine Stelle wirklich wert?</h1>
+      <h1>Was sind deine Stellen wirklich wert?</h1>
       <p className="intro">
         Jobtitel und Standort eingeben, Ergebnis in Sekunden – auf Basis aktueller Vergütungsdaten aus dem DACH-Raum.
       </p>

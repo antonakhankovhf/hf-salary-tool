@@ -3,7 +3,7 @@ export default function Hero() {
     <div className="hero">
       <div className="hero-eyebrow">Gehalts-Check für Arbeitgeber</div>
       <h2>
-        Zahlst du genug, um die <span className="accent-bg">Stelle zu besetzen</span>?
+        Zahlst du genug, um <span className="accent-bg">die Stelle zu besetzen</span>?
       </h2>
       <p className="hero-sub">
         Zu niedrige Gehälter sind der häufigste Grund, warum Stellen unbesetzt bleiben. Der Gehalts-Check zeigt dir in Sekunden, welches Gehalt am Markt realistisch ist – auf Basis aktueller Vergütungsdaten aus dem DACH-Raum.
@@ -13,7 +13,7 @@ export default function Hero() {
           <span className="tick">✓</span>
           <div>
             <strong>Marktdaten in Echtzeit</strong>
-            <p>Prognose auf Basis tausender aktueller Stellenanzeigen und Vergütungsdaten.</p>
+            <p>Prognose auf Basis tausender aktueller Stellenanzeigen, eigener Daten und Vergütungsdaten.</p>
           </div>
         </li>
         <li>
