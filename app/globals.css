@@ -540,6 +540,12 @@ select:focus {
   margin: 4px 0 6px;
 }
 .consent input[type="checkbox"] {
+  /* Die generische input-Regel setzt appearance:none + Padding fürs Textfeld-Styling -
+     für eine Checkbox macht appearance:none sie unsichtbar (kein Häkchen, accent-color
+     wirkt dann auch nicht mehr) und das Padding bläht die Klickfläche unkontrolliert auf. */
+  appearance: auto;
+  -webkit-appearance: auto;
+  padding: 0;
   width: 16px;
   height: 16px;
   flex-shrink: 0;
