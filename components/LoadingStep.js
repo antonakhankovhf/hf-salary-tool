@@ -3,26 +3,19 @@
 import { useEffect, useState } from "react";
 import { loadingSteps } from "@/lib/data";
 
-export default function LoadingStep({ onDone }) {
+// Rein kosmetisch: die eigentliche Fertigstellung steuert page.js über das
+// Promise von fetchMarketSnapshot(), nicht dieser Timer.
+export default function LoadingStep() {
   const [stepIndex, setStepIndex] = useState(0);
-  const [progress, setProgress] = useState(15);
 
   useEffect(() => {
-    let i = 0;
     const interval = setInterval(() => {
-      i++;
-      if (i < loadingSteps.length) {
-        setStepIndex(i);
-        setProgress(15 + i * 28);
-      } else {
-        clearInterval(interval);
-        setProgress(100);
-        setTimeout(onDone, 500);
-      }
+      setStepIndex((i) => (i + 1) % loadingSteps.length);
     }, 900);
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const progress = Math.min(96, 15 + stepIndex * 28);
 
   return (
     <div id="loading">

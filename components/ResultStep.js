@@ -109,7 +109,9 @@ export default function ResultStep({
                 strokeLinecap="round"
               />
             </svg>
-            <div className="stat-value">{stats.candidatesCount.toLocaleString("de-DE")}</div>
+            <div className="stat-value">
+              {stats.candidatesCapped ? "1000+" : stats.candidatesCount.toLocaleString("de-DE")}
+            </div>
           </div>
           <div className="stat-label">
             Kandidaten im System
@@ -127,7 +129,7 @@ export default function ResultStep({
               <path d="M14.5 3.5v3h3" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
               <path d="M9 12.5h6M9 15.5h6M9 18.5h3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
-            <div className="stat-value">{stats.cvCount.toLocaleString("de-DE")}</div>
+            <div className="stat-value">—</div>
           </div>
           <div className="stat-label">
             Lebensläufe im System

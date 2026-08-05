@@ -3,7 +3,7 @@
 import { jobData, cityFactors, radiusOptions } from "@/lib/data";
 import Autocomplete from "./Autocomplete";
 
-export default function SalaryForm({ values, errors, onChange, onSubmit }) {
+export default function SalaryForm({ values, errors, apiError, onChange, onSubmit }) {
   function handleKeyDown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -31,13 +31,7 @@ export default function SalaryForm({ values, errors, onChange, onSubmit }) {
           onSubmit={onSubmit}
           options={jobData}
         />
-        {errors.job && (
-          <div className="error-msg" style={{ display: "block" }}>
-            {errors.job === "unknown"
-              ? "Diesen Jobtitel konnten wir nicht zuordnen. Bitte nutze eine gängige Berufsbezeichnung (z. B. Buchhalter, Softwareentwickler, Vertrieb ...)."
-              : "Bitte gib einen Jobtitel ein."}
-          </div>
-        )}
+        {errors.job && <div className="error-msg" style={{ display: "block" }}>Bitte gib einen Jobtitel ein.</div>}
       </div>
 
       <div className="row">
@@ -45,19 +39,13 @@ export default function SalaryForm({ values, errors, onChange, onSubmit }) {
           <label htmlFor="region">Region</label>
           <Autocomplete
             id="region"
-            placeholder="z.B. München, remote ..."
+            placeholder="z.B. München, Berlin ..."
             value={values.region}
             onChange={(value) => onChange("region", value)}
             onSubmit={onSubmit}
             options={cityFactors}
           />
-          {errors.region && (
-            <div className="error-msg" style={{ display: "block" }}>
-              {errors.region === "unknown"
-                ? "Diese Region konnten wir nicht zuordnen. Bitte nutze eine Stadt im DACH-Raum oder 'remote'."
-                : "Bitte gib eine Region ein."}
-            </div>
-          )}
+          {errors.region && <div className="error-msg" style={{ display: "block" }}>Bitte gib eine Region ein.</div>}
         </div>
         <div className="field-group">
           <label htmlFor="radius">Suchradius</label>
@@ -83,6 +71,8 @@ export default function SalaryForm({ values, errors, onChange, onSubmit }) {
           )}
         </div>
       </div>
+
+      {apiError && <div className="error-msg" style={{ display: "block", marginBottom: 16 }}>{apiError}</div>}
 
       <button className="btn" onClick={onSubmit}>
         Jetzt berechnen

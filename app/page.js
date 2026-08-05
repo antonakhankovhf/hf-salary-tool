@@ -6,7 +6,8 @@ import SalaryForm from "@/components/SalaryForm";
 import LoadingStep from "@/components/LoadingStep";
 import ResultStep from "@/components/ResultStep";
 import SuccessStep from "@/components/SuccessStep";
-import { computeAverageSalary, computeBenchmark, findJobMatch, findCityMatch } from "@/lib/calculate";
+import { fetchMarketSnapshot } from "@/lib/api";
+import { describeCompetition } from "@/lib/calculate";
 
 const initialLead = { name: "", firma: "", email: "", telefon: "", consent: false };
 
@@ -14,6 +15,7 @@ export default function Home() {
   const [step, setStep] = useState("input"); // input | loading | result | success
   const [values, setValues] = useState({ jobtitel: "", region: "", radius: "" });
   const [errors, setErrors] = useState({ job: null, region: null, radius: null });
+  const [apiError, setApiError] = useState(null);
   const [result, setResult] = useState(null);
   const [stats, setStats] = useState(null);
   const [leadValues, setLeadValues] = useState(initialLead);
@@ -27,33 +29,53 @@ export default function Home() {
     setLeadValues((v) => ({ ...v, [field]: value }));
   }
 
-  function handleCalculate() {
+  async function handleCalculate() {
     const job = values.jobtitel.trim();
     const region = values.region.trim();
     const radius = values.radius;
 
     const newErrors = {
-      job: !job ? "required" : !findJobMatch(job) ? "unknown" : null,
-      region: !region ? "required" : !findCityMatch(region) ? "unknown" : null,
+      job: !job ? "required" : null,
+      region: !region ? "required" : null,
       radius: !radius ? "required" : null,
     };
     setErrors(newErrors);
     if (newErrors.job || newErrors.region || newErrors.radius) return;
 
+    setApiError(null);
     setStep("loading");
-  }
 
-  function handleLoadingDone() {
-    const job = values.jobtitel.trim();
-    const region = values.region.trim();
-    const radiusKm = parseFloat(values.radius);
+    try {
+      const data = await fetchMarketSnapshot({
+        jobTitle: job,
+        location: region,
+        radiusKm: Number(radius),
+      });
 
-    const { salary, min, max, base, cityFactor } = computeAverageSalary(job, region);
-    const benchmark = computeBenchmark(job, region, radiusKm, cityFactor, base);
+      // Bei nicht eindeutig auflösbaren Orten liefert die API 200 OK, aber ohne
+      // jobMarket/candidates (statt der dokumentierten 400) - das behandeln wir als Fehler.
+      if (!data.jobMarket || !data.candidates) {
+        throw new Error(
+          "Für diese Kombination aus Jobtitel und Region konnten wir keine Marktdaten finden. Bitte prüfe die Eingabe."
+        );
+      }
 
-    setResult({ salary, min, max });
-    setStats(benchmark);
-    setStep("result");
+      setResult({
+        salary: data.jobMarket.avgYearlySalary,
+        min: data.jobMarket.minYearlySalary,
+        max: data.jobMarket.maxYearlySalary,
+      });
+      setStats({
+        jobsSearched: data.jobMarket.openJobsCount,
+        candidatesCount: data.candidates.matchingCandidates,
+        candidatesCapped: data.candidates.capped,
+        competition: describeCompetition(data.jobMarket.openJobsCount, data.candidates.matchingCandidates),
+      });
+      setStep("result");
+    } catch (err) {
+      setApiError(err.message);
+      setStep("input");
+    }
   }
 
   function handleSubmitLead() {
@@ -76,9 +98,15 @@ export default function Home() {
       <Hero />
       <div className="card">
         {step === "input" && (
-          <SalaryForm values={values} errors={errors} onChange={handleChange} onSubmit={handleCalculate} />
+          <SalaryForm
+            values={values}
+            errors={errors}
+            apiError={apiError}
+            onChange={handleChange}
+            onSubmit={handleCalculate}
+          />
         )}
-        {step === "loading" && <LoadingStep onDone={handleLoadingDone} />}
+        {step === "loading" && <LoadingStep />}
         {step === "result" && (
           <ResultStep
             job={values.jobtitel.trim()}
