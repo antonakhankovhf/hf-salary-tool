@@ -396,6 +396,9 @@ select:focus {
 .stats-grid-3 {
   grid-template-columns: 1fr 1fr 1fr;
 }
+.stats-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
 /* Wettbewerbs-Gauge */
 .gauge-card {
   background: var(--field);

@@ -70,7 +70,7 @@ export default function ResultStep({
 
       <CompetitionGauge job={job} region={region} competition={stats.competition} />
 
-      <div className="stats-grid stats-grid-3">
+      <div className="stats-grid stats-grid-2">
         <div className="stat-tile">
           <div className="stat-top">
             <svg className="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -117,7 +117,7 @@ export default function ResultStep({
             Kandidaten im System
           </div>
         </div>
-        <div className="stat-tile">
+        {/* <div className="stat-tile">
           <div className="stat-top">
             <svg className="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -134,7 +134,7 @@ export default function ResultStep({
           <div className="stat-label">
             Lebensläufe im System
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="section-title">Genaue Analyse anfordern</div>

@@ -1,0 +1,175 @@
+<style>
+  .sp-teaser-wrapper { position: relative; background: #0d0d0d; border: 1px solid #1f1f1f; color: #fff; padding: 48px 44px 40px; border-radius: 6px; display: block; text-decoration: none; font-family: 'Barlow', Arial, sans-serif; }
+  .sp-teaser-logo { position: absolute; top: 28px; right: 28px; width: 34px; height: auto; }
+  .sp-teaser-eyebrow { color: #ddff00; font-size: 12px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; margin: 0 0 14px; }
+  .sp-teaser-header { font-size: 32px; font-weight: 800; margin: 0 0 14px; color: #fff; line-height: 1.2; }
+  .sp-teaser-desc { font-size: 15px; color: #b9b9b9; margin: 0 0 24px; line-height: 1.55; }
+  .sp-teaser-section-title { color: #ddff00; font-size: 12px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; margin: 0 0 10px; }
+  .sp-teaser-divider { border: none; border-top: 1px solid #333; margin: 0 0 22px; }
+  .sp-teaser-field-label { font-size: 12px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; color: #fff; margin: 0 0 10px; }
+  .sp-teaser-field-group { margin-bottom: 22px; position: relative; }
+  .sp-teaser-row { display: flex; gap: 18px; }
+  .sp-teaser-row .sp-teaser-field-group { flex: 1; }
+  .sp-teaser-input { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 4px; padding: 13px 14px; font-size: 15px; color: #fff; pointer-events: none; height: 46px; box-sizing: border-box; display: flex; align-items: center; }
+  .sp-teaser-select { position: relative; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 4px; padding: 13px 14px; font-size: 15px; color: #fff; height: 46px; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; transition: border-color 0.15s; }
+  .sp-teaser-select.is-open { border-color: #ddff00; }
+  .sp-teaser-select-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sp-teaser-select-chevron { width: 12px; height: 8px; flex-shrink: 0; margin-left: 10px; transition: transform 0.2s ease; }
+  .sp-teaser-select.is-open .sp-teaser-select-chevron { transform: rotate(180deg); }
+  .sp-teaser-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 4px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); overflow: hidden; max-height: 0; opacity: 0; z-index: 10; transition: max-height 0.25s ease, opacity 0.2s ease; }
+  .sp-teaser-select.is-open .sp-teaser-dropdown { max-height: 260px; opacity: 1; }
+  .sp-teaser-dropdown-option { padding: 10px 14px; font-size: 14px; color: #fff; }
+  .sp-teaser-dropdown-option.is-active { background: #2c2c2c; color: #ddff00; }
+  .sp-teaser-btn { background: #ddff00; color: #000; border: none; border-radius: 6px; font-size: 15px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 18px; text-align: center; margin-top: 10px; }
+  .sp-teaser-cursor { display: inline-block; width: 2px; height: 15px; background: #ddff00; margin-left: 2px; vertical-align: middle; animation: sp-teaser-blink 0.7s infinite; }
+  @keyframes sp-teaser-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  @media (max-width: 479px) {
+    .sp-teaser-wrapper { padding: 32px 22px; }
+    .sp-teaser-header { font-size: 24px; }
+    .sp-teaser-eyebrow, .sp-teaser-section-title { font-size: 11px; }
+    .sp-teaser-desc { font-size: 13px; }
+    .sp-teaser-field-label { font-size: 11px; }
+    .sp-teaser-input, .sp-teaser-select { font-size: 14px; }
+    .sp-teaser-row { flex-direction: column; gap: 0; }
+  }
+</style>
+
+<div class="sp-teaser-wrapper">
+  <img class="sp-teaser-logo" src="https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a09ff85c699a869f114ef48_headfound_footer.webp" alt="">
+  <p class="sp-teaser-eyebrow">Kostenloser Gehalts-Check für Arbeitgeber</p>
+  <h2 class="sp-teaser-header">Was sind deine Stellen wirklich wert?</h2>
+  <p class="sp-teaser-desc">Jobtitel und Standort eingeben, Ergebnis in Sekunden – auf Basis aktueller Vergütungsdaten aus dem DACH-Raum.</p>
+  <p class="sp-teaser-section-title">Zur Stelle</p>
+  <hr class="sp-teaser-divider">
+  <div class="sp-teaser-field-group">
+    <p class="sp-teaser-field-label">Jobtitel / Qualifikation</p>
+    <div class="sp-teaser-input" id="sp-teaser-field-job"></div>
+  </div>
+  <div class="sp-teaser-row">
+    <div class="sp-teaser-field-group">
+      <p class="sp-teaser-field-label">Region</p>
+      <div class="sp-teaser-input" id="sp-teaser-field-region"></div>
+    </div>
+    <div class="sp-teaser-field-group">
+      <p class="sp-teaser-field-label">Suchradius</p>
+      <div class="sp-teaser-select" id="sp-teaser-radius-select">
+        <span class="sp-teaser-select-value" id="sp-teaser-radius-value">Bitte wählen ...</span>
+        <svg class="sp-teaser-select-chevron" viewBox="0 0 12 8" fill="none">
+          <path d="M1 1l5 5 5-5" stroke="#ffffff" stroke-width="2" />
+        </svg>
+        <div class="sp-teaser-dropdown" id="sp-teaser-radius-dropdown">
+          <div class="sp-teaser-dropdown-option" data-label="25 km">25 km</div>
+          <div class="sp-teaser-dropdown-option" data-label="50 km">50 km</div>
+          <div class="sp-teaser-dropdown-option" data-label="75 km">75 km</div>
+          <div class="sp-teaser-dropdown-option" data-label="100 km">100 km</div>
+          <div class="sp-teaser-dropdown-option" data-label="Deutschlandweit (200+ km)">Deutschlandweit (200+ km)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sp-teaser-btn">Jetzt berechnen</div>
+</div>
+
+<script>
+(function () {
+  var pairs = [
+    { job: 'Softwareentwickler', region: 'München', radius: '50 km' },
+    { job: 'Bauleiter', region: 'Berlin', radius: '100 km' },
+    { job: 'Pflegefachkraft', region: 'Hamburg', radius: '25 km' },
+    { job: 'Vertriebsmitarbeiter', region: 'Köln', radius: '75 km' },
+    { job: 'Buchhalter', region: 'Remote', radius: 'Deutschlandweit (200+ km)' }
+  ];
+  var index = 0;
+
+  var radiusSelect = document.getElementById('sp-teaser-radius-select');
+  var radiusValueEl = document.getElementById('sp-teaser-radius-value');
+  var radiusDropdown = document.getElementById('sp-teaser-radius-dropdown');
+
+  var clearCursors = function () {
+    document.querySelectorAll('#sp-teaser-field-job .sp-teaser-cursor, #sp-teaser-field-region .sp-teaser-cursor').forEach(function (c) {
+      c.remove();
+    });
+  };
+
+  var type = function (el, text, cb) {
+    clearCursors();
+    el.innerHTML = '<span class="sp-teaser-cursor"></span>';
+    var i = 0;
+    var t = setInterval(function () {
+      el.innerHTML = text.slice(0, i) + '<span class="sp-teaser-cursor"></span>';
+      i++;
+      if (i > text.length) {
+        clearInterval(t);
+        cb();
+      }
+    }, 80);
+  };
+
+  var erase = function (el, text, cb) {
+    clearCursors();
+    var i = text.length;
+    var t = setInterval(function () {
+      el.innerHTML = text.slice(0, i) + '<span class="sp-teaser-cursor"></span>';
+      i--;
+      if (i < 0) {
+        el.innerHTML = '';
+        clearInterval(t);
+        cb();
+      }
+    }, 40);
+  };
+
+  var pause = function (ms, cb) {
+    setTimeout(cb, ms);
+  };
+
+  var openAndSelectRadius = function (label, cb) {
+    var option = radiusDropdown.querySelector('[data-label="' + label + '"]');
+    radiusSelect.classList.add('is-open');
+    pause(500, function () {
+      if (option) option.classList.add('is-active');
+      pause(450, function () {
+        radiusValueEl.textContent = label;
+        radiusSelect.classList.remove('is-open');
+        if (option) option.classList.remove('is-active');
+        cb();
+      });
+    });
+  };
+
+  var resetRadius = function () {
+    radiusValueEl.textContent = 'Bitte wählen ...';
+  };
+
+  var runCycle = function () {
+    var pair = pairs[index % pairs.length];
+    var job = document.getElementById('sp-teaser-field-job');
+    var region = document.getElementById('sp-teaser-field-region');
+
+    type(job, pair.job, function () {
+      pause(400, function () {
+        type(region, pair.region, function () {
+          pause(400, function () {
+            openAndSelectRadius(pair.radius, function () {
+              pause(2200, function () {
+                resetRadius();
+                erase(region, pair.region, function () {
+                  pause(400, function () {
+                    erase(job, pair.job, function () {
+                      index++;
+                      pause(600, runCycle);
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  };
+
+  runCycle();
+})();
+</script>
