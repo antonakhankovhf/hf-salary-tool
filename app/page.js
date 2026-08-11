@@ -9,7 +9,15 @@ import SuccessStep from "@/components/SuccessStep";
 import { fetchMarketSnapshot } from "@/lib/api";
 import { describeCompetition } from "@/lib/calculate";
 
-const initialLead = { name: "", firma: "", email: "", telefon: "", consent: false };
+const initialLead = {
+  name: "",
+  firma: "",
+  email: "",
+  telefon: "",
+  erfahrung: "",
+  kununuScore: "",
+  consent: false,
+};
 
 export default function Home() {
   const [step, setStep] = useState("input"); // input | loading | result | success
@@ -80,7 +88,7 @@ export default function Home() {
 
   function handleSubmitLead() {
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadValues.email.trim());
-    if (!leadValues.name.trim() || !validEmail || !leadValues.consent) {
+    if (!leadValues.name.trim() || !validEmail || !leadValues.telefon.trim() || !leadValues.consent) {
       setLeadError(true);
       return;
     }

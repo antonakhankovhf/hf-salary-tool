@@ -1,6 +1,7 @@
 "use client";
 
 import { fmt } from "@/lib/calculate";
+import { experienceOptions } from "@/lib/data";
 import CompetitionGauge from "./CompetitionGauge";
 
 export default function ResultStep({
@@ -168,6 +169,39 @@ export default function ResultStep({
         </div>
       </div>
 
+       <div className="row">
+        <div className="field-group">
+          <label htmlFor="erfahrung">Mindestberufserfahrung</label>
+          <select
+            id="erfahrung"
+            value={leadValues.erfahrung}
+            onChange={(e) => onLeadChange("erfahrung", e.target.value)}
+            onKeyDown={handleKeyDown}
+          >
+            <option value="" disabled>
+              Bitte wählen ...
+            </option>
+            {experienceOptions.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="field-group">
+          <label htmlFor="kununuScore">Kununu Aktueller Score (1–5)</label>
+          <input
+            type="text"
+            id="kununuScore"
+            placeholder="z.B. 3.8"
+            value={leadValues.kununuScore}
+            onChange={(e) => onLeadChange("kununuScore", e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+      </div>
+
+      <div className="row">
       <div className="field-group">
         <label htmlFor="email">E-Mail-Adresse</label>
         <input
@@ -191,7 +225,7 @@ export default function ResultStep({
           onKeyDown={handleKeyDown}
         />
       </div>
-
+      </div>
       <div className="consent">
         <input
           type="checkbox"
@@ -211,7 +245,7 @@ export default function ResultStep({
       </div>
       {leadError && (
         <div className="error-msg" style={{ display: "block", marginBottom: 8 }}>
-          Bitte fülle Name und E-Mail aus und bestätige die Einwilligung.
+          Bitte fülle Name, E-Mail und Telefon aus und bestätige die Einwilligung.
         </div>
       )}
 
