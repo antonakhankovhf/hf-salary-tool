@@ -12,6 +12,7 @@ export default function ResultStep({
   stats,
   leadValues,
   leadError,
+  leadApiError,
   onLeadChange,
   onSubmitLead,
   onBack,
@@ -246,6 +247,11 @@ export default function ResultStep({
       {leadError && (
         <div className="error-msg" style={{ display: "block", marginBottom: 8 }}>
           Bitte fülle Name, E-Mail und Telefon aus und bestätige die Einwilligung.
+        </div>
+      )}
+      {leadApiError && (
+        <div className="error-msg" style={{ display: "block", marginBottom: 8 }}>
+          {leadApiError}
         </div>
       )}
 

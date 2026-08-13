@@ -6,7 +6,7 @@ import SalaryForm from "@/components/SalaryForm";
 import LoadingStep from "@/components/LoadingStep";
 import ResultStep from "@/components/ResultStep";
 import SuccessStep from "@/components/SuccessStep";
-import { fetchMarketSnapshot } from "@/lib/api";
+import { fetchMarketSnapshot, submitLead } from "@/lib/api";
 import { describeCompetition } from "@/lib/calculate";
 
 const initialLead = {
@@ -28,6 +28,7 @@ export default function Home() {
   const [stats, setStats] = useState(null);
   const [leadValues, setLeadValues] = useState(initialLead);
   const [leadError, setLeadError] = useState(false);
+  const [leadApiError, setLeadApiError] = useState(null);
 
   function handleChange(field, value) {
     setValues((v) => ({ ...v, [field]: value }));
@@ -86,15 +87,32 @@ export default function Home() {
     }
   }
 
-  function handleSubmitLead() {
+  async function handleSubmitLead() {
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadValues.email.trim());
     if (!leadValues.name.trim() || !validEmail || !leadValues.telefon.trim() || !leadValues.consent) {
       setLeadError(true);
       return;
     }
     setLeadError(false);
-    // TODO: Formulardaten an Backend/CRM senden (fetch POST)
-    setStep("success");
+    setLeadApiError(null);
+
+    try {
+      await submitLead({
+        name: leadValues.name.trim(),
+        firma: leadValues.firma.trim(),
+        email: leadValues.email.trim(),
+        telefon: leadValues.telefon.trim(),
+        erfahrung: leadValues.erfahrung,
+        kununuScore: leadValues.kununuScore.trim(),
+        consent: leadValues.consent,
+        job: values.jobtitel.trim(),
+        region: values.region.trim(),
+        radiusKm: Number(values.radius),
+      });
+      setStep("success");
+    } catch (err) {
+      setLeadApiError(err.message);
+    }
   }
 
   function handleBack() {
@@ -124,6 +142,7 @@ export default function Home() {
             stats={stats}
             leadValues={leadValues}
             leadError={leadError}
+            leadApiError={leadApiError}
             onLeadChange={handleLeadChange}
             onSubmitLead={handleSubmitLead}
             onBack={handleBack}
