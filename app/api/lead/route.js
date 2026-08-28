@@ -12,13 +12,19 @@ export async function POST(request) {
     return Response.json({ error: "Ungültiger Request-Body." }, { status: 400 });
   }
 
-  const { name, firma, email, telefon, erfahrung, kununuScore, consent, job, region, radiusKm } = body ?? {};
-  if (!name || !email || !telefon || !consent) {
-    return Response.json({ error: "name, email, telefon und consent sind erforderlich." }, { status: 400 });
+  const { vorname, nachname, firma, email, telefon, erfahrung, kununuScore, consent, job, region, radiusKm } =
+    body ?? {};
+  if (!vorname || !nachname || !email || !telefon || !consent) {
+    return Response.json(
+      { error: "vorname, nachname, email, telefon und consent sind erforderlich." },
+      { status: 400 }
+    );
   }
 
   const payload = {
-    name,
+    firstName: vorname,
+    lastName: nachname,
+    name: `${vorname} ${nachname}`,
     company: firma || null,
     email,
     phone: telefon,

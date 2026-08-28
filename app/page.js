@@ -10,7 +10,8 @@ import { fetchMarketSnapshot, submitLead } from "@/lib/api";
 import { describeCompetition } from "@/lib/calculate";
 
 const initialLead = {
-  name: "",
+  vorname: "",
+  nachname: "",
   firma: "",
   email: "",
   telefon: "",
@@ -28,6 +29,7 @@ export default function Home() {
   const [stats, setStats] = useState(null);
   const [leadValues, setLeadValues] = useState(initialLead);
   const [leadError, setLeadError] = useState(false);
+  const [leadScoreError, setLeadScoreError] = useState(false);
   const [leadApiError, setLeadApiError] = useState(null);
 
   function handleChange(field, value) {
@@ -89,16 +91,34 @@ export default function Home() {
 
   async function handleSubmitLead() {
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadValues.email.trim());
-    if (!leadValues.name.trim() || !validEmail || !leadValues.telefon.trim() || !leadValues.consent) {
+    if (
+      !leadValues.vorname.trim() ||
+      !leadValues.nachname.trim() ||
+      !validEmail ||
+      !leadValues.telefon.trim() ||
+      !leadValues.consent
+    ) {
       setLeadError(true);
+      setLeadScoreError(false);
       return;
     }
+
+    const scoreRaw = leadValues.kununuScore.trim();
+    const score = scoreRaw === "" ? null : Number(scoreRaw);
+    if (score !== null && (Number.isNaN(score) || score < 1 || score > 5)) {
+      setLeadScoreError(true);
+      setLeadError(false);
+      return;
+    }
+
     setLeadError(false);
+    setLeadScoreError(false);
     setLeadApiError(null);
 
     try {
       await submitLead({
-        name: leadValues.name.trim(),
+        vorname: leadValues.vorname.trim(),
+        nachname: leadValues.nachname.trim(),
         firma: leadValues.firma.trim(),
         email: leadValues.email.trim(),
         telefon: leadValues.telefon.trim(),
@@ -142,6 +162,7 @@ export default function Home() {
             stats={stats}
             leadValues={leadValues}
             leadError={leadError}
+            leadScoreError={leadScoreError}
             leadApiError={leadApiError}
             onLeadChange={handleLeadChange}
             onSubmitLead={handleSubmitLead}

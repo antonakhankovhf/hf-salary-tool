@@ -12,6 +12,7 @@ export default function ResultStep({
   stats,
   leadValues,
   leadError,
+  leadScoreError,
   leadApiError,
   onLeadChange,
   onSubmitLead,
@@ -22,6 +23,16 @@ export default function ResultStep({
       e.preventDefault();
       onSubmitLead();
     }
+  }
+
+  // type="number" erlaubt per Spec trotzdem e/E/+/- (wissenschaftliche Notation) einzutippen,
+  // und min/max blocken nichts, solange kein <form> die native Validierung auslöst.
+  function handleKununuKeyDown(e) {
+    if (["e", "E", "+", "-"].includes(e.key)) {
+      e.preventDefault();
+      return;
+    }
+    handleKeyDown(e);
   }
 
   return (
@@ -147,16 +158,34 @@ export default function ResultStep({
 
       <div className="row">
         <div className="field-group">
-          <label htmlFor="name">Vorname &amp; Nachname</label>
+          <label htmlFor="vorname">
+            Vorname <span className="required-mark">*</span>
+          </label>
           <input
             type="text"
-            id="name"
-            placeholder="Max Mustermann"
-            value={leadValues.name}
-            onChange={(e) => onLeadChange("name", e.target.value)}
+            id="vorname"
+            placeholder="Max"
+            value={leadValues.vorname}
+            onChange={(e) => onLeadChange("vorname", e.target.value)}
             onKeyDown={handleKeyDown}
           />
         </div>
+        <div className="field-group">
+          <label htmlFor="nachname">
+            Nachname <span className="required-mark">*</span>
+          </label>
+          <input
+            type="text"
+            id="nachname"
+            placeholder="Mustermann"
+            value={leadValues.nachname}
+            onChange={(e) => onLeadChange("nachname", e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+      </div>
+
+      <div className="row">
         <div className="field-group">
           <label htmlFor="firma">Unternehmen</label>
           <input
@@ -168,9 +197,36 @@ export default function ResultStep({
             onKeyDown={handleKeyDown}
           />
         </div>
+        <div className="field-group">
+          <label htmlFor="telefon">
+            Telefon <span className="required-mark">*</span>
+          </label>
+          <input
+            type="tel"
+            id="telefon"
+            placeholder="+49 ..."
+            value={leadValues.telefon}
+            onChange={(e) => onLeadChange("telefon", e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
       </div>
 
-       <div className="row">
+      <div className="field-group">
+        <label htmlFor="email">
+          E-Mail-Adresse <span className="required-mark">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          placeholder="company@mail.de"
+          value={leadValues.email}
+          onChange={(e) => onLeadChange("email", e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+
+      <div className="row">
         <div className="field-group">
           <label htmlFor="erfahrung">Mindestberufserfahrung</label>
           <select
@@ -192,41 +248,24 @@ export default function ResultStep({
         <div className="field-group">
           <label htmlFor="kununuScore">Kununu Aktueller Score (1–5)</label>
           <input
-            type="text"
+            type="number"
             id="kununuScore"
+            min="1"
+            max="5"
+            step="0.1"
             placeholder="z.B. 3.8"
             value={leadValues.kununuScore}
             onChange={(e) => onLeadChange("kununuScore", e.target.value)}
-            onKeyDown={handleKeyDown}
+            onKeyDown={handleKununuKeyDown}
           />
+          {leadScoreError && (
+            <div className="error-msg" style={{ display: "block" }}>
+              Bitte gib einen Score zwischen 1 und 5 ein.
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="row">
-      <div className="field-group">
-        <label htmlFor="email">E-Mail-Adresse</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="company@mail.de"
-          value={leadValues.email}
-          onChange={(e) => onLeadChange("email", e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-      </div>
-
-      <div className="field-group">
-        <label htmlFor="telefon">Telefon</label>
-        <input
-          type="tel"
-          id="telefon"
-          placeholder="+49 ..."
-          value={leadValues.telefon}
-          onChange={(e) => onLeadChange("telefon", e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-      </div>
-      </div>
       <div className="consent">
         <input
           type="checkbox"
@@ -246,7 +285,7 @@ export default function ResultStep({
       </div>
       {leadError && (
         <div className="error-msg" style={{ display: "block", marginBottom: 8 }}>
-          Bitte fülle Name, E-Mail und Telefon aus und bestätige die Einwilligung.
+          Bitte fülle Vorname, Nachname, E-Mail und Telefon aus und bestätige die Einwilligung.
         </div>
       )}
       {leadApiError && (
