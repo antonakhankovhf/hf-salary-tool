@@ -297,7 +297,7 @@ export default function ResultStep({
       <button className="btn" onClick={onSubmitLead}>
         Analyse anfordern
       </button>
-      <p className="footnote">Kostenlos &amp; unverbindlich. Wir melden uns innerhalb von 24 Stunden bei dir.</p>
+      <p className="footnote">Kostenlos &amp; unverbindlich. Nach dem Absenden erhältst du eine E-Mail von uns. Bitte bestätige darin kurz deine E-Mail-Adresse. Keine E-Mail da? Schau bitte auch im Spam-Ordner nach.</p>
     </div>
   );
 }
