@@ -2,6 +2,7 @@
 
 import { fmt } from "@/lib/calculate";
 import { experienceOptions } from "@/lib/data";
+import { MAX_LENGTH } from "@/lib/validation";
 import CompetitionGauge from "./CompetitionGauge";
 
 export default function ResultStep({
@@ -13,6 +14,7 @@ export default function ResultStep({
   leadValues,
   leadError,
   leadScoreError,
+  leadPhoneError,
   leadApiError,
   onLeadChange,
   onSubmitLead,
@@ -164,6 +166,7 @@ export default function ResultStep({
           <input
             type="text"
             id="vorname"
+            maxLength={MAX_LENGTH}
             placeholder="Max"
             value={leadValues.vorname}
             onChange={(e) => onLeadChange("vorname", e.target.value)}
@@ -177,6 +180,7 @@ export default function ResultStep({
           <input
             type="text"
             id="nachname"
+            maxLength={MAX_LENGTH}
             placeholder="Mustermann"
             value={leadValues.nachname}
             onChange={(e) => onLeadChange("nachname", e.target.value)}
@@ -191,6 +195,7 @@ export default function ResultStep({
           <input
             type="text"
             id="firma"
+            maxLength={MAX_LENGTH}
             placeholder="Muster GmbH"
             value={leadValues.firma}
             onChange={(e) => onLeadChange("firma", e.target.value)}
@@ -198,9 +203,7 @@ export default function ResultStep({
           />
         </div>
         <div className="field-group">
-          <label htmlFor="telefon">
-            Telefon <span className="required-mark">*</span>
-          </label>
+          <label htmlFor="telefon">Telefon</label>
           <input
             type="tel"
             id="telefon"
@@ -209,6 +212,11 @@ export default function ResultStep({
             onChange={(e) => onLeadChange("telefon", e.target.value)}
             onKeyDown={handleKeyDown}
           />
+          {leadPhoneError && (
+            <div className="error-msg" style={{ display: "block" }}>
+              Bitte gib eine gültige Telefonnummer ein.
+            </div>
+          )}
         </div>
       </div>
 
@@ -219,6 +227,7 @@ export default function ResultStep({
         <input
           type="email"
           id="email"
+          maxLength={254}
           placeholder="company@mail.de"
           value={leadValues.email}
           onChange={(e) => onLeadChange("email", e.target.value)}
@@ -279,13 +288,24 @@ export default function ResultStep({
           mit Wirkung für die Zukunft widerrufen. Durch den Widerruf der Einwilligung wird die
           Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung
           nicht berührt. Mit deiner Handlung bestätigst du ebenfalls, die{" "}
-          <a href="#">Datenschutzerklärung</a> und das <a href="#">Transparenzdokument</a> gelesen
+          <a href="https://www.headfound.com/datenschutz" target="_blank" rel="noopener noreferrer">
+            Datenschutzerklärung
+          </a>{" "}
+          und das{" "}
+          <a
+            href="https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a200d16d0e6b942af1ff2e8_6891f114fcd75d4e39ba5cd4_HEADFOUND%20GmbH_FINAL_Transparency%20Document.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Transparenzdokument
+          </a>{" "}
+          gelesen
           und zur Kenntnis genommen zu haben.
         </p>
       </div>
       {leadError && (
         <div className="error-msg" style={{ display: "block", marginBottom: 8 }}>
-          Bitte fülle Vorname, Nachname, E-Mail und Telefon aus und bestätige die Einwilligung.
+          Bitte fülle Vorname, Nachname und E-Mail aus und bestätige die Einwilligung.
         </div>
       )}
       {leadApiError && (

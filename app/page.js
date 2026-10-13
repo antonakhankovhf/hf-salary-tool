@@ -8,6 +8,7 @@ import ResultStep from "@/components/ResultStep";
 import SuccessStep from "@/components/SuccessStep";
 import { fetchMarketSnapshot, submitLead } from "@/lib/api";
 import { describeCompetition } from "@/lib/calculate";
+import { isValidEmail, isValidPhone, parseKununuScore } from "@/lib/validation";
 
 const initialLead = {
   vorname: "",
@@ -30,6 +31,7 @@ export default function Home() {
   const [leadValues, setLeadValues] = useState(initialLead);
   const [leadError, setLeadError] = useState(false);
   const [leadScoreError, setLeadScoreError] = useState(false);
+  const [leadPhoneError, setLeadPhoneError] = useState(false);
   const [leadApiError, setLeadApiError] = useState(null);
 
   function handleChange(field, value) {
@@ -90,29 +92,37 @@ export default function Home() {
   }
 
   async function handleSubmitLead() {
-    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadValues.email.trim());
+    const validEmail = isValidEmail(leadValues.email.trim());
     if (
       !leadValues.vorname.trim() ||
       !leadValues.nachname.trim() ||
       !validEmail ||
-      !leadValues.telefon.trim() ||
       !leadValues.consent
     ) {
       setLeadError(true);
       setLeadScoreError(false);
+      setLeadPhoneError(false);
       return;
     }
 
-    const scoreRaw = leadValues.kununuScore.trim();
-    const score = scoreRaw === "" ? null : Number(scoreRaw);
-    if (score !== null && (Number.isNaN(score) || score < 1 || score > 5)) {
+    const phone = leadValues.telefon.trim();
+    if (phone && !isValidPhone(phone)) {
+      setLeadPhoneError(true);
+      setLeadError(false);
+      setLeadScoreError(false);
+      return;
+    }
+
+    if (Number.isNaN(parseKununuScore(leadValues.kununuScore.trim()))) {
       setLeadScoreError(true);
       setLeadError(false);
+      setLeadPhoneError(false);
       return;
     }
 
     setLeadError(false);
     setLeadScoreError(false);
+    setLeadPhoneError(false);
     setLeadApiError(null);
 
     try {
@@ -121,7 +131,7 @@ export default function Home() {
         nachname: leadValues.nachname.trim(),
         firma: leadValues.firma.trim(),
         email: leadValues.email.trim(),
-        telefon: leadValues.telefon.trim(),
+        telefon: phone,
         erfahrung: leadValues.erfahrung,
         kununuScore: leadValues.kununuScore.trim(),
         consent: leadValues.consent,
@@ -163,6 +173,7 @@ export default function Home() {
             leadValues={leadValues}
             leadError={leadError}
             leadScoreError={leadScoreError}
+            leadPhoneError={leadPhoneError}
             leadApiError={leadApiError}
             onLeadChange={handleLeadChange}
             onSubmitLead={handleSubmitLead}

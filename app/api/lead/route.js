@@ -1,3 +1,5 @@
+import { validateLead } from "@/lib/validation";
+
 // Läuft server-seitig, damit die Webhook-URL nie an den Browser geht.
 export async function POST(request) {
   const webhookUrl = process.env.LEAD_WEBHOOK_URL;
@@ -12,14 +14,11 @@ export async function POST(request) {
     return Response.json({ error: "Ungültiger Request-Body." }, { status: 400 });
   }
 
-  const { vorname, nachname, firma, email, telefon, erfahrung, kununuScore, consent, job, region, radiusKm } =
-    body ?? {};
-  if (!vorname || !nachname || !email || !telefon || !consent) {
-    return Response.json(
-      { error: "vorname, nachname, email, telefon und consent sind erforderlich." },
-      { status: 400 }
-    );
+  const { data, error } = validateLead(body);
+  if (error) {
+    return Response.json({ error }, { status: 400 });
   }
+  const { vorname, nachname, firma, email, telefon, erfahrung, kununuScore, job, region, radiusKm } = data;
 
   const payload = {
     firstName: vorname,
@@ -27,7 +26,7 @@ export async function POST(request) {
     name: `${vorname} ${nachname}`,
     company: firma || null,
     email,
-    phone: telefon,
+    phone: telefon || null,
     consent: true,
     consentGivenAt: new Date().toISOString(),
     request: {
