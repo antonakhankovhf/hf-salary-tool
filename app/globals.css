@@ -40,13 +40,13 @@ body {
   text-transform: uppercase;
   margin-bottom: 28px;
 }
-.hero h2 {
+.hero h1 {
   font-size: 56px;
   font-weight: 800;
   line-height: 1.25;
   margin-bottom: 28px;
 }
-.hero h2 .accent {
+.hero h1 .accent {
   color: var(--accent);
 }
 .hero-sub {
@@ -117,7 +117,7 @@ body {
   text-transform: uppercase;
   margin-bottom: 14px;
 }
-h1 {
+.title {
   font-size: 32px;
   font-weight: 800;
   margin-bottom: 14px;
@@ -639,7 +639,7 @@ select:focus {
   .hero {
     max-width: 640px;
   }
-  .hero h2 {
+  .hero h1 {
     font-size: 38px;
   }
 }
@@ -651,10 +651,10 @@ select:focus {
     flex-direction: column;
     gap: 0;
   }
-  h1 {
+  .title {
     font-size: 26px;
   }
-  .hero h2 {
+  .hero h1 {
     font-size: 30px;
   }
   .result-range {

@@ -52,7 +52,7 @@ export default function ResultStep({
         Neue Suche
       </button>
       <div className="eyebrow">Dein Ergebnis</div>
-      <h1 id="result-title">Gehaltsprognose</h1>
+      <h2 id="result-title" className="title">Gehaltsprognose</h2>
       <p className="intro" id="result-subtitle">
         Für die Position <span className="white-bold-text">„{job}“</span> in <span className="white-bold-text">{region}</span> (Umkreis <span className="white-bold-text">{radius}</span> km) haben wir folgende Werte
         ermittelt:

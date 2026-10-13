@@ -2,9 +2,9 @@ export default function Hero() {
   return (
     <div className="hero">
       <div className="hero-eyebrow">Gehalts-Check für Arbeitgeber</div>
-      <h2>
+      <h1>
         Zahlst du genug, um <span className="accent-bg">die Stelle zu besetzen</span>?
-      </h2>
+      </h1>
       <p className="hero-sub">
         Zu niedrige Gehälter sind der häufigste Grund, warum Stellen unbesetzt bleiben. Der Gehalts-Check zeigt dir in Sekunden, welches Gehalt am Markt realistisch ist – auf Basis aktueller Vergütungsdaten aus dem DACH-Raum.
       </p>
