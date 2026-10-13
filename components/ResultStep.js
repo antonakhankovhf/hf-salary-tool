@@ -209,7 +209,9 @@ export default function ResultStep({
             id="telefon"
             placeholder="+49 ..."
             value={leadValues.telefon}
-            onChange={(e) => onLeadChange("telefon", e.target.value)}
+            autoComplete="tel"
+            // type="tel" blockt nichts - Buchstaben etc. direkt beim Tippen/Einfügen rausfiltern.
+            onChange={(e) => onLeadChange("telefon", e.target.value.replace(/[^\d\s()\/+-]/g, ""))}
             onKeyDown={handleKeyDown}
           />
           {leadPhoneError && (
