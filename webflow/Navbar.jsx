@@ -70,7 +70,7 @@ export function Navbar({}) {
                 }}
               >
                 <Image
-                  alt={""}
+                  alt={"Logo der Firma HEADFOUND mit weißen Buchstaben."}
                   className={"image"}
                   height={"auto"}
                   loading={"eager"}

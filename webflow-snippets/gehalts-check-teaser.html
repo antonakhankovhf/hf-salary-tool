@@ -1,0 +1,242 @@
+<style>
+  .sp-teaser-wrapper { position: relative; background: #0d0d0d; border: 1px solid #1f1f1f; color: #fff; padding: 48px 44px 40px; border-radius: 6px; display: block; text-decoration: none; font-family: 'Barlow', Arial, sans-serif; }
+  .sp-teaser-logo { position: absolute; top: 28px; right: 28px; width: 34px; height: auto; }
+  .sp-teaser-eyebrow { display: flex; align-items: center; gap: 8px; color: #ddff00; font-size: 12px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; margin: 0 0 14px; }
+  .sp-teaser-header { font-size: 32px; font-weight: 800; margin: 0 0 14px; color: #fff; line-height: 1.2; }
+  .sp-teaser-desc { font-size: 15px; color: #b9b9b9; margin: 0 0 24px; line-height: 1.55; }
+  .sp-teaser-section-title { color: #ddff00; font-size: 12px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; margin: 0 0 10px; }
+  .sp-teaser-divider { border: none; border-top: 1px solid #333; margin: 0 0 22px; }
+  .sp-teaser-field-label { font-size: 12px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; color: #fff; margin: 0 0 10px; }
+  .sp-teaser-field-group { margin-bottom: 22px; position: relative; }
+  .sp-teaser-row { display: flex; gap: 18px; }
+  .sp-teaser-row .sp-teaser-field-group { flex: 1; }
+  .sp-teaser-input { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 4px; padding: 13px 14px; font-size: 15px; color: #fff; pointer-events: none; height: 46px; box-sizing: border-box; display: flex; align-items: center; }
+  .sp-teaser-select { position: relative; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 4px; padding: 13px 14px; font-size: 15px; color: #fff; height: 46px; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; transition: border-color 0.15s; }
+  .sp-teaser-select.is-open { border-color: #ddff00; }
+  .sp-teaser-select-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sp-teaser-select-chevron { width: 8px; height: 8px; flex-shrink: 0; margin: -4px 2px 0 10px; border-right: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(45deg); transition: transform 0.2s ease, margin 0.2s ease; }
+  .sp-teaser-select.is-open .sp-teaser-select-chevron { transform: rotate(-135deg); margin-top: 4px; }
+  .sp-teaser-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 4px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); overflow: hidden; max-height: 0; opacity: 0; z-index: 10; transition: max-height 0.25s ease, opacity 0.2s ease; }
+  .sp-teaser-select.is-open .sp-teaser-dropdown { max-height: 260px; opacity: 1; }
+  .sp-teaser-dropdown-option { padding: 10px 14px; font-size: 14px; color: #fff; }
+  .sp-teaser-dropdown-option.is-active { background: #2c2c2c; color: #ddff00; }
+  .sp-teaser-btn { background: #ddff00; color: #000; border: none; border-radius: 6px; font-size: 15px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 18px; text-align: center; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .sp-teaser-arrow-icon { display: inline-block; flex-shrink: 0; position: relative; top: -0.12em; font-weight: 800; line-height: 1; color: #000; -webkit-text-stroke: 1.5px #000; animation: sp-teaser-nudge 2.4s ease-in-out infinite; }
+  .sp-teaser-btn .sp-teaser-arrow-icon { font-size: 20px; letter-spacing: 0; }
+  .sp-teaser-cursor { display: inline-block; width: 2px; height: 15px; background: #ddff00; margin-left: 2px; vertical-align: middle; animation: sp-teaser-blink 0.7s infinite; }
+  @keyframes sp-teaser-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* Mobile: kompakter Teaser statt des ganzen Formulars */
+  .sp-teaser-mobile { display: none; align-items: center; gap: 16px; position: relative; overflow: hidden; background: linear-gradient(135deg, #161616 0%, #0d0d0d 60%); border: 1px solid #2a2a2a; border-radius: 10px; padding: 20px 18px 20px 20px; color: #fff; text-decoration: none; font-family: 'Barlow', Arial, sans-serif; -webkit-tap-highlight-color: transparent; transition: border-color 0.15s, transform 0.15s; }
+  .sp-teaser-mobile::before { content: ""; position: absolute; top: -60px; right: -40px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(221, 255, 0, 0.16) 0%, rgba(221, 255, 0, 0) 70%); pointer-events: none; }
+  .sp-teaser-mobile:active { border-color: #ddff00; transform: scale(0.99); }
+  .sp-teaser-mobile-text { flex: 1; min-width: 0; position: relative; }
+  .sp-teaser-mobile-eyebrow { display: flex; align-items: center; gap: 8px; color: #ddff00; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 8px; line-height: 1.3; }
+  .sp-teaser-dot { width: 7px; height: 7px; border-radius: 50%; background: #ddff00; flex-shrink: 0; animation: sp-teaser-pulse 1.8s ease-out infinite; }
+  @keyframes sp-teaser-pulse { 0% { box-shadow: 0 0 0 0 rgba(221, 255, 0, 0.6); } 70%, 100% { box-shadow: 0 0 0 7px rgba(221, 255, 0, 0); } }
+  .sp-teaser-mobile-title { font-size: 20px; font-weight: 800; line-height: 1.2; color: #fff; margin: 0 0 6px; }
+  .sp-teaser-mobile-note { font-size: 13px; color: #b9b9b9; margin: 0; line-height: 1.4; }
+  .sp-teaser-mobile-arrow { position: relative; flex-shrink: 0; width: 52px; height: 52px; border-radius: 8px; background: #ddff00; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(221, 255, 0, 0.18); }
+  .sp-teaser-mobile-arrow .sp-teaser-arrow-icon { font-size: 26px; }
+  @keyframes sp-teaser-nudge { 0%, 70%, 100% { transform: translateX(0); } 80% { transform: translateX(4px); } 90% { transform: translateX(0); } }
+
+  .sp-teaser-link { display: block; text-decoration: none; color: inherit; }
+
+  @media (max-width: 479px) {
+    .sp-teaser-wrapper { display: none; }
+    .sp-teaser-mobile { display: flex; cursor: pointer; }
+    .sp-teaser-link.is-moved { margin-bottom: 32px; }
+  }
+  @media (max-width: 359px) {
+    .sp-teaser-mobile-title { font-size: 18px; }
+  }
+</style>
+
+<div class="sp-teaser-wrapper">
+  <img class="sp-teaser-logo" src="https://cdn.prod.website-files.com/6992e49ad3337e973f903dee/6a09ff85c699a869f114ef48_headfound_footer.webp" alt="HEADFOUND Logo">
+  <p class="sp-teaser-eyebrow"><span class="sp-teaser-dot"></span>Kostenloser Gehalts-Check für Arbeitgeber</p>
+  <h2 class="sp-teaser-header">Was sind deine Stellen wirklich wert?</h2>
+  <p class="sp-teaser-desc">Jobtitel und Standort eingeben, Ergebnis in Sekunden – auf Basis aktueller Vergütungsdaten aus dem DACH-Raum.</p>
+  <p class="sp-teaser-section-title">Zur Stelle</p>
+  <hr class="sp-teaser-divider">
+  <div class="sp-teaser-field-group">
+    <p class="sp-teaser-field-label">Jobtitel / Qualifikation</p>
+    <div class="sp-teaser-input" id="sp-teaser-field-job"></div>
+  </div>
+  <div class="sp-teaser-row">
+    <div class="sp-teaser-field-group">
+      <p class="sp-teaser-field-label">Region</p>
+      <div class="sp-teaser-input" id="sp-teaser-field-region"></div>
+    </div>
+    <div class="sp-teaser-field-group">
+      <p class="sp-teaser-field-label">Suchradius</p>
+      <div class="sp-teaser-select" id="sp-teaser-radius-select">
+        <span class="sp-teaser-select-value" id="sp-teaser-radius-value">Bitte wählen ...</span>
+        <span class="sp-teaser-select-chevron" aria-hidden="true"></span>
+        <div class="sp-teaser-dropdown" id="sp-teaser-radius-dropdown">
+          <div class="sp-teaser-dropdown-option" data-label="25 km">25 km</div>
+          <div class="sp-teaser-dropdown-option" data-label="50 km">50 km</div>
+          <div class="sp-teaser-dropdown-option" data-label="75 km">75 km</div>
+          <div class="sp-teaser-dropdown-option" data-label="100 km">100 km</div>
+          <div class="sp-teaser-dropdown-option" data-label="Deutschlandweit (200+ km)">Deutschlandweit (200+ km)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sp-teaser-btn">
+    Jetzt berechnen
+    <span class="sp-teaser-arrow-icon" aria-hidden="true">→</span>
+  </div>
+</div>
+
+<div class="sp-teaser-mobile">
+  <div class="sp-teaser-mobile-text">
+    <p class="sp-teaser-mobile-eyebrow"><span class="sp-teaser-dot"></span>Kostenloser Gehalts-Check</p>
+    <p class="sp-teaser-mobile-title">Was sind deine Stellen wirklich wert?</p>
+    <p class="sp-teaser-mobile-note">Ergebnis in Sekunden</p>
+  </div>
+  <span class="sp-teaser-mobile-arrow">
+    <span class="sp-teaser-arrow-icon" aria-hidden="true">→</span>
+  </span>
+</div>
+
+<script>
+(() => {
+  const pairs = [
+    { job: 'Softwareentwickler', region: 'München', radius: '50 km' },
+    { job: 'Bauleiter', region: 'Berlin', radius: '100 km' },
+    { job: 'Pflegefachkraft', region: 'Hamburg', radius: '25 km' },
+    { job: 'Vertriebsmitarbeiter', region: 'Köln', radius: '75 km' },
+    { job: 'Buchhalter', region: 'Remote', radius: 'Deutschlandweit (200+ km)' }
+  ];
+  let index = 0;
+
+  const radiusSelect = document.getElementById('sp-teaser-radius-select');
+  const radiusValueEl = document.getElementById('sp-teaser-radius-value');
+  const radiusDropdown = document.getElementById('sp-teaser-radius-dropdown');
+
+  const clearCursors = () => {
+    document.querySelectorAll('#sp-teaser-field-job .sp-teaser-cursor, #sp-teaser-field-region .sp-teaser-cursor').forEach((c) => {
+      c.remove();
+    });
+  };
+
+  const type = (el, text, cb) => {
+    clearCursors();
+    el.innerHTML = '<span class="sp-teaser-cursor"></span>';
+    let i = 0;
+    const t = setInterval(() => {
+      el.innerHTML = text.slice(0, i) + '<span class="sp-teaser-cursor"></span>';
+      i++;
+      if (i > text.length) {
+        clearInterval(t);
+        cb();
+      }
+    }, 80);
+  };
+
+  const erase = (el, text, cb) => {
+    clearCursors();
+    let i = text.length;
+    const t = setInterval(() => {
+      el.innerHTML = text.slice(0, i) + '<span class="sp-teaser-cursor"></span>';
+      i--;
+      if (i < 0) {
+        el.innerHTML = '';
+        clearInterval(t);
+        cb();
+      }
+    }, 40);
+  };
+
+  const pause = (ms, cb) => {
+    setTimeout(cb, ms);
+  };
+
+  const openAndSelectRadius = (label, cb) => {
+    const option = radiusDropdown.querySelector(`[data-label="${label}"]`);
+    radiusSelect.classList.add('is-open');
+    pause(500, () => {
+      if (option) option.classList.add('is-active');
+      pause(450, () => {
+        radiusValueEl.textContent = label;
+        radiusSelect.classList.remove('is-open');
+        if (option) option.classList.remove('is-active');
+        cb();
+      });
+    });
+  };
+
+  const resetRadius = () => {
+    radiusValueEl.textContent = 'Bitte wählen ...';
+  };
+
+  const runCycle = () => {
+    const pair = pairs[index % pairs.length];
+    const job = document.getElementById('sp-teaser-field-job');
+    const region = document.getElementById('sp-teaser-field-region');
+
+    type(job, pair.job, () => {
+      pause(400, () => {
+        type(region, pair.region, () => {
+          pause(400, () => {
+            openAndSelectRadius(pair.radius, () => {
+              pause(2200, () => {
+                resetRadius();
+                erase(region, pair.region, () => {
+                  pause(400, () => {
+                    erase(job, pair.job, () => {
+                      index++;
+                      pause(600, runCycle);
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  };
+
+  const mq = window.matchMedia('(max-width: 479px)');
+
+  // Auf Mobile den ganzen Teaser (inkl. umgebendem Link Block) direkt über die CTA-Buttons
+  // im Hero verschieben, auf Desktop zurück an die ursprüngliche Stelle.
+  const embed = document.querySelector('.sp-teaser-wrapper').parentNode;
+  const link = embed.closest('a');
+  const block = link || embed;
+  const home = block.parentNode;
+  const homeNext = block.nextSibling;
+  if (link) link.classList.add('sp-teaser-link');
+  else document.querySelector('.sp-teaser-mobile').addEventListener('click', () => { window.location.href = '/gehalts-check'; });
+
+  let heroCta = null;
+  const placeBlock = () => {
+    const container = home.closest('.container');
+    heroCta = heroCta || (container && container.querySelector('.cta-badges'));
+    if (!heroCta) return;
+    if (mq.matches && !block.classList.contains('is-moved')) {
+      heroCta.parentNode.insertBefore(block, heroCta);
+      block.classList.add('is-moved');
+    } else if (!mq.matches && block.classList.contains('is-moved')) {
+      home.insertBefore(block, homeNext);
+      block.classList.remove('is-moved');
+    }
+  };
+
+  // Formular-Animation nur starten, wenn das Formular sichtbar ist (auf Mobile ist es ausgeblendet).
+  let started = false;
+  const startIfVisible = () => {
+    if (!mq.matches && !started) { started = true; runCycle(); }
+  };
+  const onChange = () => { placeBlock(); startIfVisible(); };
+  // Die CTA-Buttons stehen im HTML nach diesem Embed - erst nach dem Laden verschieben.
+  const init = () => {
+    onChange();
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
