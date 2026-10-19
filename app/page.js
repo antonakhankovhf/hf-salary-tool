@@ -9,6 +9,7 @@ import SuccessStep from "@/components/SuccessStep";
 import { fetchMarketSnapshot, submitLead } from "@/lib/api";
 import { describeCompetition } from "@/lib/calculate";
 import { isValidEmail, isValidPhone, parseKununuScore } from "@/lib/validation";
+import { track } from "@/lib/tracking";
 
 const initialLead = {
   vorname: "",
@@ -85,9 +86,16 @@ export default function Home() {
         competition: describeCompetition(data.jobMarket.openJobsCount, data.candidates.matchingCandidates),
       });
       setStep("result");
+      track("gehaltscheck_calculate", {
+        job_title: job,
+        region,
+        radius_km: Number(radius),
+        avg_salary: data.jobMarket.avgYearlySalary,
+      });
     } catch (err) {
       setApiError(err.message);
       setStep("input");
+      track("gehaltscheck_calculate_error", { job_title: job, region, radius_km: Number(radius), error_message: err.message });
     }
   }
 
@@ -140,8 +148,16 @@ export default function Home() {
         radiusKm: Number(values.radius),
       });
       setStep("success");
+      track("gehaltscheck_lead_submit", {
+        job_title: values.jobtitel.trim(),
+        region: values.region.trim(),
+        radius_km: Number(values.radius),
+        has_phone: Boolean(phone),
+        min_experience: leadValues.erfahrung || "",
+      });
     } catch (err) {
       setLeadApiError(err.message);
+      track("gehaltscheck_lead_error", { error_message: err.message });
     }
   }
 

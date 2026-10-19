@@ -6,6 +6,7 @@ import { DevLinkProvider } from "@/webflow/DevLinkProvider";
 import { Navbar } from "@/webflow/Navbar";
 import { Footer } from "@/webflow/Footer";
 import CalendlyPopup from "@/components/CalendlyPopup";
+import GoogleTagManager from "@/components/GoogleTagManager";
 
 const barlow = Barlow({
   subsets: ["latin"],
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="de-DE">
       <body className={barlow.className}>
+        <GoogleTagManager />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
