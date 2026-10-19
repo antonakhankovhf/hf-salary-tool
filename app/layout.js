@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { Barlow } from "next/font/google";
 import "@/webflow/css/global.css";
 import "./globals.css";
@@ -26,6 +27,31 @@ export const metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "de_DE",
+  },
+};
+
+// Cookie-Banner (iubenda), 1:1 aus dem Custom Code der Webflow-Site - der wird
+// in die Webflow-Cloud-App nicht eingebunden.
+const iubendaConfig = {
+  askConsentAtCookiePolicyUpdate: true,
+  gdprAppliesGlobally: false,
+  perPurposeConsent: true,
+  siteId: 3238465,
+  whitelabel: false,
+  cookiePolicyId: 65788483,
+  privacyPolicyUrl: "https://www.headfound.com/datenschutz",
+  privacyPolicyNoticeAtCollection: true,
+  lang: "de",
+  floatingPreferencesButtonDisplay: "bottom-right",
+  banner: {
+    acceptButtonDisplay: true,
+    backgroundOverlay: true,
+    closeButtonDisplay: false,
+    customizeButtonDisplay: true,
+    explicitWithdrawal: true,
+    listPurposes: true,
+    position: "bottom",
+    rejectButtonDisplay: true,
   },
 };
 
@@ -80,6 +106,13 @@ export default function RootLayout({ children }) {
           <Footer />
           <CalendlyPopup />
         </DevLinkProvider>
+        {/* Konfiguration muss vor iubenda_cs.js stehen, daher alle drei beforeInteractive (in dieser Reihenfolge). */}
+        <Script id="iubenda-config" strategy="beforeInteractive">
+          {`var _iub = _iub || []; _iub.csConfiguration = ${JSON.stringify(iubendaConfig)};`}
+        </Script>
+        <Script src="https://cs.iubenda.com/sync/3238465.js" strategy="beforeInteractive" />
+        <Script src="https://cdn.iubenda.com/cs/iubenda_cs.js" strategy="beforeInteractive" charSet="UTF-8" />
+        <Script id="dacs" src="https://download.digiaccess.org/digiaccess" strategy="afterInteractive" />
       </body>
     </html>
   );
