@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Hero from "@/components/Hero";
 import SalaryForm from "@/components/SalaryForm";
 import LoadingStep from "@/components/LoadingStep";
@@ -34,6 +34,7 @@ export default function Home() {
   const [leadScoreError, setLeadScoreError] = useState(false);
   const [leadPhoneError, setLeadPhoneError] = useState(false);
   const [leadApiError, setLeadApiError] = useState(null);
+  const leadStarted = useRef(false);
 
   function handleChange(field, value) {
     setValues((v) => ({ ...v, [field]: value }));
@@ -41,6 +42,10 @@ export default function Home() {
 
   function handleLeadChange(field, value) {
     setLeadValues((v) => ({ ...v, [field]: value }));
+    if (!leadStarted.current) {
+      leadStarted.current = true;
+      track("gehaltscheck_lead_start");
+    }
   }
 
   async function handleCalculate() {
@@ -100,31 +105,22 @@ export default function Home() {
   }
 
   async function handleSubmitLead() {
-    const validEmail = isValidEmail(leadValues.email.trim());
-    if (
-      !leadValues.vorname.trim() ||
-      !leadValues.nachname.trim() ||
-      !validEmail ||
-      !leadValues.consent
-    ) {
-      setLeadError(true);
-      setLeadScoreError(false);
-      setLeadPhoneError(false);
-      return;
-    }
-
     const phone = leadValues.telefon.trim();
-    if (phone && !isValidPhone(phone)) {
-      setLeadPhoneError(true);
-      setLeadError(false);
-      setLeadScoreError(false);
-      return;
-    }
 
-    if (Number.isNaN(parseKununuScore(leadValues.kununuScore.trim()))) {
-      setLeadScoreError(true);
-      setLeadError(false);
-      setLeadPhoneError(false);
+    // Erstes ungültiges Feld in fester Reihenfolge - die Werte gehen nicht an GA4, nur der Feldname.
+    let invalidField = null;
+    if (!leadValues.vorname.trim()) invalidField = "first_name";
+    else if (!leadValues.nachname.trim()) invalidField = "last_name";
+    else if (!isValidEmail(leadValues.email.trim())) invalidField = "email";
+    else if (!leadValues.consent) invalidField = "consent";
+    else if (phone && !isValidPhone(phone)) invalidField = "phone";
+    else if (Number.isNaN(parseKununuScore(leadValues.kununuScore.trim()))) invalidField = "kununu_score";
+
+    if (invalidField) {
+      setLeadError(!["phone", "kununu_score"].includes(invalidField));
+      setLeadPhoneError(invalidField === "phone");
+      setLeadScoreError(invalidField === "kununu_score");
+      track("gehaltscheck_lead_invalid", { invalid_field: invalidField });
       return;
     }
 
